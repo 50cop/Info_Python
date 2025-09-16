@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My GitHub Pages Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            padding: 40px 20px 20px 20px;
+            text-align: center;
+            background-color: #4a90e2;
+            color: white;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .tiles-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 40px;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .tile {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 30px;
+            text-align: center;
+            font-size: 1.2em;
+            color: #333;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .tile:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #f1f1f1;
+            color: #555;
+        }
+
+        @media (max-width: 600px) {
+            .tiles-container {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>My Project Portal</h1>
+    <p>Click on a tile to access a page</p>
+</header>
+
+<div class="tiles-container">
+    <a href="#" class="tile">Tile 1</a>
+    <a href="#" class="tile">Tile 2</a>
+    <a href="#" class="tile">Tile 3</a>
+    <a href="#" class="tile">Tile 4</a>
+    <a href="#" class="tile">Tile 5</a>
+    <a href="#" class="tile">Tile 6</a>
+</div>
+
+<footer>
+    &copy; 2025 My GitHub Pages Portal
+</footer>
+
+</body>
+</html>
