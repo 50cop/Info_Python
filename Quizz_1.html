@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Python Basics Quiz — Multiline Options</title>
+
+  <!-- Prism.js (CDN) for syntax highlighting -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+
+  <style>
+    body { font-family: Arial, sans-serif; margin: 32px; background: #1e1e2f; color: #222; }
+    h1 { color: #dddddd; margin-bottom: 4px; }
+    .meta { margin-bottom: 18px; color: #bbbbbb; }
+    .question { margin-bottom: 18px; padding: 14px; background: #c3c3e0; border-radius: 8px;
+                 box-shadow: 0 1px 3px rgba(20,30,40,0.06); }
+    .q-stem { margin-bottom: 10px; font-size: 15px; }
+    .options { margin-top: 8px; }
+    .option-row { display: flex; gap: 12px; align-items: flex-start; margin: 8px 0; }
+    .option-label { display: flex; align-items: center; gap: 8px; min-width: 48px; }
+    .option-text { line-height: 1.4; }
+    .option-pre { margin: 0; padding: 8px 10px; background: #f2f5f7; border-radius: 6px;
+                  white-space: pre; font-family: Menlo, Monaco, "Courier New", monospace; }
+    .option-pre.code { background: #2d2d2d; color: #eee; } /* used for showing code via Prism theme */
+    button.check { margin-top: 8px; padding: 6px 10px; border-radius: 6px; border: none;
+                   background: #2d86d5; color: white; cursor: pointer; }
+    button.check:hover { background: #246fae; }
+    .feedback { margin-top: 6px; font-weight: 600; }
+    #score { margin-top: 16px; padding: 10px; background: #eef3f8; border-radius: 6px; font-weight: 700; }
+    pre > code { display: block; } /* prism code blocks */
+  </style>
+</head>
+<body>
+  <h1>Quizz Python – <i>The Basics</i> (Sheet 1)</h1>
+  <div class="meta">Select answers (multiple correct allowed). Use "Check" per question and "Score quiz" when finished.</div>
+
+  <div id="quiz"></div>
+
+  <button onclick="scoreQuiz()" style="margin-top:12px;padding:8px 14px;border-radius:6px;border:none;background:#28a745;color:#fff;cursor:pointer">
+    Score quiz
+  </button>
+
+  <div id="score"></div>
+
+<script>
+/* Quiz data. Set `multiline: true` on questions whose options should render as preserved multi-line blocks. */
+const quiz = [
+  {
+    stem: "Which of the following Python statements correctly defines a function that returns the larger of two numbers a and b?",
+    options: [
+      "def sup(a, b):\n    return a if a > b else b",
+      "def sup(a, b):\n    if a > b:\n        return a\n    else:\n        return b",
+      "def sup(a, b):\n    return max(a, b)",
+      "def sup(a, b):\n    return min(a, b)"
+    ],
+    correct: [0,1,2]
+  },
+  {
+    stem: "Given two complex numbers a and b, which expressions return their modulus?",
+    options: [
+      "abs(a)",
+      "a.mod()",
+      "(a.real**2 + a.imag**2)**0.5",
+      "math.abs(a)"
+    ],
+    correct: [0,2]
+  },
+  {
+    stem: "What will sup(abs(3+4j), abs(1+1j)) return?",
+    options: ["2","5","√2","3+4j"],
+    correct: [1]
+  },
+  {
+    stem: "Which of the following functions correctly computes n! using a for loop?",
+    options: [
+      "def fact(n):\n    result = 1\n    for i in range(1, n+1):\n        result *= i\n    return result",
+      "def fact(n): return n * fact(n-1)",
+      "def fact(n):\n    result = 1\n    for i in range(n):\n        result *= i\n    return result",
+      "def fact(n): return math.factorial(n)"
+    ],
+    correct: [0]
+  },
+  {
+    stem: "What does the following list comprehension generate?",
+    code: "[x1 + r*i for i in range(n)]",
+    options: [
+      "First n elements of an arithmetic sequence",
+      "First n elements of a geometric sequence",
+      "A list of repeated values x1",
+      "A list of powers of r"
+    ],
+    correct: [0]
+  },
+  {
+    stem: "What is the sum of the first 3 terms of the arithmetic sequence with x1=2 and r=5?",
+    options: ["21","12","37","19"],
+    correct: [0]
+  },
+  {
+    stem: "Which of the following correctly describes the append method in Python?",
+    options: [
+      "Adds a new element at the end of a list",
+      "Returns a new list with one more element",
+      "Modifies the list in place",
+      "Can only be used inside a loop"
+    ],
+    correct: [0,2]
+  },
+  /* QUESTION 8: mark multiline: true so options render as preserved line blocks */
+  {
+    stem: "What will the function below print if n=4?",
+    code: "def triangle(n):\n    for i in range(1, n+1):\n        print('*'*i)",
+    options: [
+      "****\n***\n**\n*",
+      "*\n**\n***\n****",
+      "****\n****\n****\n****",
+      "*\n*\n*\n*"
+    ],
+    correct: [1],
+    multiline: true
+  },
+  {
+    stem: "What will the function hide_vowels('Hello World') return?",
+    code: "def hide_vowels(s):\n    vowels = 'aeiouAEIOU'\n    for v in vowels:\n        s = s.replace(v, '*')\n    return s",
+    options: [
+      "H*ll* W*rld",
+      "Hello World",
+      "**** *****",
+      "Hollo World"
+    ],
+    correct: [0]
+  },
+  {
+    stem: "Which of the following correctly computes the absolute value of a real number x without using built-in functions?",
+    options: [
+      "def my_abs(x):\n    if x >= 0:\n        return x\n    else:\n        return -x",
+      "def my_abs(x): return x if x >= 0 else -x",
+      "def my_abs(x): return abs(x)",
+      "def my_abs(x): return x**2"
+    ],
+    correct: [0,1]
+  }
+];
+
+/* Utility */
+function createQuestionElement(q, qi) {
+  const container = document.createElement('div');
+  container.className = 'question';
+
+  // Stem
+  const stem = document.createElement('div');
+  stem.className = 'q-stem';
+  stem.innerHTML = `<strong>Q${qi+1}.</strong> ${q.stem}`;
+  container.appendChild(stem);
+
+  // Code example (if any)
+  if (q.code) {
+    const pre = document.createElement('pre');
+    const code = document.createElement('code');
+    code.className = 'language-python';
+    code.textContent = q.code;
+    pre.appendChild(code);
+    container.appendChild(pre);
+  }
+
+  // Options container
+  const opts = document.createElement('div');
+  opts.className = 'options';
+
+  q.options.forEach(function(opt, oi) {
+    const row = document.createElement('div');
+    row.className = 'option-row';
+
+    // Label + checkbox
+    const label = document.createElement('label');
+    label.className = 'option-label';
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.name = `q${qi}`;
+    checkbox.value = oi;
+    label.appendChild(checkbox);
+    label.appendChild(document.createTextNode(' ' + String.fromCharCode(65 + oi) + '.'));
+    row.appendChild(label);
+
+    // Option body: multiline block, code block (Prism), or simple text
+    if (q.multiline) {
+      const pre = document.createElement('pre');
+      pre.className = 'option-pre';
+      pre.textContent = opt; // preserve newlines exactly
+      row.appendChild(pre);
+    } else if (opt.includes('\n') || opt.trim().startsWith('def ')) {
+      // render as code with prism theme
+      const pre = document.createElement('pre');
+      pre.className = 'option-pre code';
+      const code = document.createElement('code');
+      code.className = 'language-python';
+      code.textContent = opt;
+      pre.appendChild(code);
+      row.appendChild(pre);
+    } else {
+      const span = document.createElement('div');
+      span.className = 'option-text';
+      span.textContent = opt;
+      row.appendChild(span);
+    }
+
+    opts.appendChild(row);
+  });
+
+  container.appendChild(opts);
+
+  // Check button + feedback
+  const checkBtn = document.createElement('button');
+  checkBtn.className = 'check';
+  checkBtn.textContent = 'Check';
+  const fb = document.createElement('div');
+  fb.className = 'feedback';
+  checkBtn.onclick = function() {
+    const selected = Array.from(document.querySelectorAll(`input[name="q${qi}"]:checked`)).map(n => parseInt(n.value));
+    const corr = q.correct.slice().sort();
+    selected.sort();
+    if (JSON.stringify(selected) === JSON.stringify(corr)) {
+      fb.textContent = '✅ Correct!';
+      fb.style.color = 'green';
+    } else {
+      fb.textContent = '❌ Incorrect. Correct: ' + corr.map(i => String.fromCharCode(65+i)).join(', ');
+      fb.style.color = 'crimson';
+    }
+  };
+
+  container.appendChild(checkBtn);
+  container.appendChild(fb);
+
+  return container;
+}
+
+/* Render quiz */
+function renderQuiz() {
+  const root = document.getElementById('quiz');
+  quiz.forEach((q, i) => {
+    root.appendChild(createQuestionElement(q, i));
+  });
+  // Prism highlight for code blocks
+  if (window.Prism) {
+    Prism.highlightAll();
+  }
+}
+
+/* Score the whole quiz */
+function scoreQuiz() {
+  let total = 0;
+  quiz.forEach((q, qi) => {
+    const selected = Array.from(document.querySelectorAll(`input[name="q${qi}"]:checked`)).map(n => parseInt(n.value)).sort();
+    const corr = q.correct.slice().sort();
+    if (JSON.stringify(selected) === JSON.stringify(corr)) total++;
+  });
+  document.getElementById('score').textContent = `Final Score: ${total} / ${quiz.length}`;
+}
+
+/* Init */
+renderQuiz();
+</script>
+</body>
+</html>
